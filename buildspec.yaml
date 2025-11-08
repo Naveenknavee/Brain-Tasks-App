@@ -13,19 +13,20 @@ phases:
     
       - echo "Logging in to Amazon ECR..."
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 697800486705.dkr.ecr.ap-south-1.amazonaws.com
-      #- aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
+      
   build:
     commands:
       - echo "Building Docker image..."
       - docker build -t brain-task .
-      - docker tag brain-task:latest $ECR_REPO:latest
+      - docker tag brain-task:latest 697800486705.dkr.ecr.ap-south-1.amazonaws.com/brain-task:latest
       - docker push 697800486705.dkr.ecr.ap-south-1.amazonaws.com/brain-task:latest
-      #- docker push $ECR_REPO/brain-task:latest
+      
       
   post_build:
     commands:
       - echo "Writing image details to imageDetail.json..."
-      - printf '{"ImageURI":"%s"}' $ECR_REPO:latest > imageDetail.json
+      - printf '{"ImageURI":"%s"}' $ECR_REPO/brain-task:latest > imageDetail.json
+      
 artifacts:
   files:
     - imageDetail.json
