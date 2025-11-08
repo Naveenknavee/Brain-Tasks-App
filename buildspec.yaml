@@ -19,8 +19,9 @@ phases:
       - echo "Building Docker image..."
       - docker build -t brain-task .
       - docker tag brain-task:latest $ECR_REPO:latest
-      - docker push $ECR_REPO/brain-task:latest
-      #docker push 697800486705.dkr.ecr.ap-south-1.amazonaws.com/brain-task:latest
+      - docker push 697800486705.dkr.ecr.ap-south-1.amazonaws.com/brain-task:latest
+      #- docker push $ECR_REPO/brain-task:latest
+      
   post_build:
     commands:
       - echo "Writing image details to imageDetail.json..."
