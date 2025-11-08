@@ -3,7 +3,7 @@ version: 0.2
 env:
   variables:
     AWS_REGION: ap-south-1
-    ECR_REPO: 697800486705.dkr.ecr.ap-south-1.amazonaws.com
+    ECR_REPO: 69public.ecr.aws/w7b0v2b2/brain-task
     CLUSTER_NAME: my-eks-cluster
   compute_type: BUILD_GENERAL1_SMALL
 
@@ -12,14 +12,14 @@ phases:
     commands:
     
       - echo "Logging in to Amazon ECR..."
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 697800486705.dkr.ecr.ap-south-1.amazonaws.com
-      
+     # - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 697800486705.dkr.ecr.ap-south-1.amazonaws.com
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/w7b0v2b2
   build:
     commands:
       - echo "Building Docker image..."
       - docker build -t brain-task .
-      - docker tag brain-task:latest 697800486705.dkr.ecr.ap-south-1.amazonaws.com/brain-task:latest
-      - docker push 697800486705.dkr.ecr.ap-south-1.amazonaws.com/brain-task:latest
+      - docker tag brain-task:latest public.ecr.aws/w7b0v2b2/brain-task:latest
+      - docker push public.ecr.aws/w7b0v2b2/brain-task:latest
       
       
   post_build:
