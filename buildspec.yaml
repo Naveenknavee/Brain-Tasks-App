@@ -3,13 +3,14 @@ version: 0.2
 env:
   variables:
     AWS_REGION: ap-south-1
-    ECR_REPO: 697800486705.dkr.ecr.ap-south-1.amazonaws.com/brain-task
+    ECR_REPO: 697800486705.dkr.ecr.ap-south-1.amazonaws.com
     CLUSTER_NAME: my-eks-cluster
   compute_type: BUILD_GENERAL1_SMALL
 
 phases:
   pre_build:
     commands:
+    
       - echo "Logging in to Amazon ECR..."
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
   build:
@@ -28,3 +29,5 @@ artifacts:
     - appspec.yml
     - deployment.yaml
     - service.yaml
+
+
