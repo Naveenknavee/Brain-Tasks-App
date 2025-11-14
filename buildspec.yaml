@@ -21,16 +21,19 @@ phases:
       - docker push public.ecr.aws/w7b0v2b2/brain-task:latest
       
       
-  post_build:
+    post_build:
     commands:
-      - echo "Writing image details to imageDetail.json..."
-      - printf '{"ImageURI":"%s"}' $ECR_REPO/brain-task:latest > imageDetail.json
-      
+      - echo "Updating kubeconfig..."
+      - aws eks update-kubeconfig --name my-eks-cluster --region ap-south-1
+
+      - echo "Deploying to EKS..."
+      - kubectl apply -f deployment.yaml
+      - kubectl apply -f service.yaml
+
 artifacts:
   files:
-    - imageDetail.json
-    - appspec.yml
     - deployment.yaml
     - service.yaml
+    - appspec.yml
 
 
