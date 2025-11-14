@@ -3,7 +3,7 @@ version: 0.2
 env:
   variables:
     AWS_REGION: ap-south-1
-    ECR_REPO: 69public.ecr.aws/w7b0v2b2/brain-task
+    ECR_REPO: public.ecr.aws/w7b0v2b2/brain-task
     CLUSTER_NAME: my-eks-cluster
   compute_type: BUILD_GENERAL1_SMALL
 
@@ -21,8 +21,13 @@ phases:
       - docker push public.ecr.aws/w7b0v2b2/brain-task:latest
       
       
-    post_build:
+   post_build:
     commands:
+      - echo "Installing kubectl..."
+      - curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.29.0/2024-02-12/bin/linux/amd64/kubectl
+      - chmod +x kubectl
+      - mv kubectl /usr/local/bin/
+
       - echo "Updating kubeconfig..."
       - aws eks update-kubeconfig --name my-eks-cluster --region ap-south-1
 
