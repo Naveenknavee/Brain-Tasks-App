@@ -22,15 +22,17 @@ phases:
 
   post_build:
     commands:
-      - echo "Installing kubectl..."
-      - curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.29.0/2024-02-12/bin/linux/amd64/kubectl
+      - echo "Installing kubectl (v1.31 compatible with EKS 1.32)..."
+      - curl -s -o kubectl https://amazon-eks.s3.ap-south-1.amazonaws.com/1.31.0/2024-09-23/bin/linux/amd64/kubectl
       - chmod +x kubectl
-      - sudo mv kubectl /usr/local/bin/
+      - mv kubectl /usr/local/bin/
+      - kubectl version --client
 
-      - echo "Updating kubeconfig..."
-      - aws eks update-kubeconfig --name my-eks-cluster --region ap-south-1
+      - echo "Configuring kubectl for EKS..."
+      - aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster
+      - kubectl get nodes
 
-      - echo "Deploying to EKS..."
+      - echo "Deploying manifests..."
       - kubectl apply -f deployment.yaml
       - kubectl apply -f service.yaml
 
@@ -38,6 +40,3 @@ artifacts:
   files:
     - deployment.yaml
     - service.yaml
-    - appspec.yml
-
-
