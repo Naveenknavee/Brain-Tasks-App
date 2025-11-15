@@ -22,12 +22,6 @@ phases:
 
   post_build:
     commands:
-      - echo "Installing kubectl (v1.31 compatible with EKS 1.32)..."
-      - curl -s -o kubectl https://amazon-eks.s3.ap-south-1.amazonaws.com/1.31.0/2024-09-23/bin/linux/amd64/kubectl
-      - chmod +x kubectl
-      - mv kubectl /usr/local/bin/
-      
-
       - echo "Configuring kubectl for EKS..."
       - aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster
       - kubectl get nodes
