@@ -1,5 +1,12 @@
 version: 0.2
 
+env:
+  variables:
+    AWS_REGION: ap-south-1
+    ECR_REPO: public.ecr.aws/w7b0v2b2/brain-task
+    CLUSTER_NAME: my-eks-cluster
+  compute_type: BUILD_GENERAL1_SMALL
+
 phases:
   pre_build:
     commands:
@@ -16,11 +23,9 @@ phases:
   post_build:
     commands:
       - echo "Installing kubectl..."
-      - curl -LO "https://s3.us-west-2.amazonaws.com/amazon-eks/1.29.0/2024-02-12/bin/linux/amd64/kubectl"
+      - curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.29.0/2024-02-12/bin/linux/amd64/kubectl
       - chmod +x kubectl
-      - mv kubectl /usr/local/bin/kubectl || mv kubectl /usr/bin/kubectl
-      - export PATH=$PATH:/usr/local/bin:/usr/bin
-      - kubectl version --client
+      - sudo mv kubectl /usr/local/bin/
 
       - echo "Updating kubeconfig..."
       - aws eks update-kubeconfig --name my-eks-cluster --region ap-south-1
