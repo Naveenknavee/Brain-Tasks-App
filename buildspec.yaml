@@ -26,7 +26,7 @@ phases:
       - curl -s -o kubectl https://amazon-eks.s3.ap-south-1.amazonaws.com/1.31.0/2024-09-23/bin/linux/amd64/kubectl
       - chmod +x kubectl
       - mv kubectl /usr/local/bin/
-      - kubectl version --client
+      
 
       - echo "Configuring kubectl for EKS..."
       - aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster
