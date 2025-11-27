@@ -51,4 +51,12 @@ Stich all together with AWS pipeline to automate the CI/CD pipeline
 Git-->CodeBuild-->build docker image--> push to ECR-->codedeploy-->EKS cluster.
 
 
+current status
+deploy using codebuild
+kubectl cmd is not executing in logs 
+[Container] 2025/11/15 10:47:56.787377 Running command kubectl get nodes
+error: You must be logged in to the server (Unauthorized)
+RBAC issues
+
+
 
