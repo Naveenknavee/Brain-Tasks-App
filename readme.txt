@@ -48,15 +48,11 @@ create Codedeploy application map the deployment group as EKS cluster
 now codedeploy will apply the manifistfile to the EKS cluster and service file will create loadbalance to access the application 
 
 Stich all together with AWS pipeline to automate the CI/CD pipeline 
-Git-->CodeBuild-->build docker image--> push to ECR-->codedeploy-->EKS cluster.
+Git-->CodeBuild-->build docker image--> push to ECR-->deploy-->EKS cluster--> Monitor using cloudwatch logs 
 
+Code deploy is not available for free tire account will deploy in EKS cluster using code build using buildspec.yaml 
+Follow the steps in buildspec phase details
 
-current status
-deploy using codebuild
-kubectl cmd is not executing in logs 
-[Container] 2025/11/15 10:47:56.787377 Running command kubectl get nodes
-error: You must be logged in to the server (Unauthorized)
-RBAC issues
 
 
 
