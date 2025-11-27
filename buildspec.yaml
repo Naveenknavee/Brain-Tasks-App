@@ -24,8 +24,6 @@ phases:
     commands:
       - echo "Configuring kubectl for EKS..."
       - aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster
-      - kubectl get nodes
-
       - echo "Deploying manifests..."
       - kubectl apply -f deployment.yaml
       - kubectl apply -f service.yaml
