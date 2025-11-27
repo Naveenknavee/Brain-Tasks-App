@@ -44,14 +44,19 @@ provide deployment.yaml & service.yaml
 -service.yaml
 -appspec.yaml
 
-create Codedeploy application map the deployment group as EKS cluster
+-->create Codedeploy application map the deployment group as EKS cluster
 now codedeploy will apply the manifistfile to the EKS cluster and service file will create loadbalance to access the application 
-
-Stich all together with AWS pipeline to automate the CI/CD pipeline 
-Git-->CodeBuild-->build docker image--> push to ECR-->deploy-->EKS cluster--> Monitor using cloudwatch logs 
 
 Code deploy is not available for free tire account will deploy in EKS cluster using code build using buildspec.yaml 
 Follow the steps in buildspec phase details
+authenticate EKS access tab and pass the IAM role in of codebuild
+
+Stich all together with AWS pipeline to automate the CI/CD pipeline 
+provide required IAM policy : codestart and codebuild full access
+Git-->CodeBuild-->build docker image--> push to ECR-->deploy-->EKS cluster--> Monitor using cloudwatch logs 
+
+
+
 
 
 
